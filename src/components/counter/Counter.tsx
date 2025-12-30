@@ -1,7 +1,7 @@
 import {DisplayCounter} from "../displayCounter/DisplayCounter.tsx";
 import {useState} from "react";
-import {CounterControls} from "../counterControls/CounterControls.tsx";
 import s from './Counter.module.scss'
+import {Button} from "../button/Button.tsx";
 
 
 export const Counter = () => {
@@ -23,17 +23,24 @@ export const Counter = () => {
 
   }
   const hasReachedMax = count === maxValue;
+  const isMinValue = count === minValue;
 
   return (
     <div className={s.counterWrapper}>
       <DisplayCounter count={count} isMax={hasReachedMax}/>
 
-      <CounterControls
-        onInc={onClickIncHandler}
-        onReset={onClickResetHandler}
-        isIncDisabled={count === maxValue}
-        isResetDisabled={count === minValue}
-      />
+      <div className={s.buttonsWrapper}>
+        <Button
+          title="inc"
+          onClick={onClickIncHandler}
+          disabled={hasReachedMax}
+        />
+        <Button
+          title="reset"
+          onClick={onClickResetHandler}
+          disabled={isMinValue}
+        />
+      </div>
 
     </div>
   );
